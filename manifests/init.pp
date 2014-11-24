@@ -1,35 +1,60 @@
 # == Class: forge_server
 #
-# Full description of class forge_server here.
+# A Puppet module to manage the Puppet Forge Server service
 #
 # === Parameters
 #
-# Document parameters here.
+# [*package*]
+#   Optional override of package name
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*scl*]
+#   Name of ruby scl environment, leave undef to use system ruby
 #
-# === Variables
+# [*service_enable*]
+#   Boolean if service should be enabled on boot
 #
-# Here you should define a list of variables that this module would require.
+# [*service_ensure*]
+#   Service ensure state
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*service_refresh*]
+#   Boolean if config changes and package changes should trigger service restart
+#
+# [*pidfile*]
+#   Path to pidfile
+#
+# [*port*]
+#   Port to bind to
+#
+# [*bind_host*]
+#   IP or host to bind to
+#
+# [*daemonize*]
+#   Boolean if should be daemonized
+#
+# [*module_directory*]
+#   Directory of modules to serve, can be an array of directories
+#
+# [*proxy*]
+#   Proxy requests to this upstream forge url
+#
+# [*cache_basedir*]
+#   Path where to store proxied / cached modules
+#
+# [*log_dir*]
+#   Path to log directory
+#
+# [*debug*]
+#   Boolean to toggle debug
 #
 # === Examples
 #
-#  class { 'forge_server':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#  class { '::forge_server':
+#    scl => 'ruby193'
 #  }
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Johan Lyheden <johan.lyheden@unibet.com>
 #
 # === Copyright
 #
