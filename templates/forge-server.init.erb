@@ -1,0 +1,14 @@
+# MANAGED BY PUPPET
+
+describe "Puppet Forge Server"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+setuid <%= @user %>
+setgid <%= @user %>
+
+script
+  . /etc/default/forge-server
+  puppet-forge-server $PARAMS
+end script
