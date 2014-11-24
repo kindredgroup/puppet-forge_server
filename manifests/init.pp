@@ -37,6 +37,7 @@
 #
 class forge_server (
   $package          = $::forge_server::params::package,
+  $scl              = undef,
   $service_enable   = true,
   $service_ensure   = 'running',
   $service_refresh  = true,

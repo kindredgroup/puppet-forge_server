@@ -11,21 +11,22 @@ class forge_server::config {
   $cache_basedir = $::forge_server::cache_basedir
   $log_dir = $::forge_server::log_dir
   $debug = $::forge_server::debug
+  $scl = $::forge_server::scl
 
-  file { '/etc/default/forge-server':
+  file { '/etc/default/puppet-forge-server':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("${module_name}/forge-server.default.erb")
+    content => template("${module_name}/puppet-forge-server.default.erb")
   }
 
-  file { '/etc/init/forge-server.conf':
+  file { '/etc/init.d/puppet-forge-server':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/forge-server.init.erb")
+    mode    => '0755',
+    content => template("${module_name}/puppet-forge-server.initd.erb")
   }
 
 }

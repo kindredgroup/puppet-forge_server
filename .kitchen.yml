@@ -1,0 +1,43 @@
+---
+<%
+driver = ENV.fetch('KITCHEN_DRIVER', 'vagrant')
+if driver == 'docker' %>
+driver:
+  name: docker
+  use_sudo: false
+  socket: <%= ENV.fetch('DOCKER_HOST', 'unix:///var/run/docker.sock') %>
+  dns: <%= ENV.fetch('DNS_RESOLVER', '8.8.8.8') %>
+<% else %>
+driver:
+  name: vagrant
+<% end %>
+
+provisioner:
+  name: puppet_apply
+  modules_path: nevermind
+  resolve_with_librarian_puppet: true
+  require_chef_for_busser: true
+
+<% if driver == 'docker' %>
+platforms:
+  - name: docker-centos6
+    driver_plugin: docker
+    driver_config:
+      image: jlyheden/kitchen-puppet:centos6
+      platform: centos
+<% else %>
+platforms:
+  - name: vbox-centos-64
+    driver_plugin: vagrant
+    driver_config:
+      box: centos-64-x64-vbox4210
+      box_url: http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box
+  - name: vbox-ubuntu-server-12042
+    driver_plugin: vagrant
+    driver_config:
+      box: ubuntu-server-12042-x64-vbox4210
+      box_url: http://puppet-vagrant-boxes.puppetlabs.com/ubuntu-server-12042-x64-vbox4210.box
+<% end %>
+
+suites:
+  - name: default
