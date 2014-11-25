@@ -1,3 +1,7 @@
+# == Class: forge_server::params
+#
+# Default settings
+#
 class forge_server::params {
   $package = 'puppet-forge-server'
   $user = 'forge'

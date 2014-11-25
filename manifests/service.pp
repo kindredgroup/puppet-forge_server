@@ -1,3 +1,7 @@
+# == Class: forge_server::service
+#
+# Manages the puppet-forge-server daemon
+#
 class forge_server::service {
 
   service { 'puppet-forge-server':

@@ -1,3 +1,7 @@
+# == Class: forge_server::files
+#
+# Directories needed by puppet-forge-server
+#
 class forge_server::files {
 
   $pid_dir = dirname($::forge_server::pidfile)

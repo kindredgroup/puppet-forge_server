@@ -1,3 +1,7 @@
+# == Class: forge_server::config
+#
+# Manages configuration files
+#
 class forge_server::config {
 
   # Scope config variables for templates

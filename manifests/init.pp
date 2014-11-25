@@ -58,7 +58,7 @@
 #
 # === Copyright
 #
-# Copyright 2014 Your name here, unless otherwise noted.
+# Copyright 2014 North Development AB
 #
 class forge_server (
   $package          = $::forge_server::params::package,

@@ -22,7 +22,7 @@ PARAMS="${PARAMS} --daemonize"
 
 <%- if @module_directory then -%>
 # Directory containing packaged modules (can be specified multiple times)
-<%- if @module_director.is_a? Array then
+<%- if @module_directory.is_a? Array then
 @module_directory.each do |md| -%>
 PARAMS="${PARAMS} --module-dir \"<%= md %>\""
 <%- end
