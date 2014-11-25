@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : ['>= 3.3', '<=3.5.1']
+puppetversion = ENV.key?('PUPPET_VERSION') ? "= #{ENV['PUPPET_VERSION']}" : '=3.7.3'
 
 group :rspec, :kitchen do
   gem 'librarian-puppet'
   gem 'puppet', puppetversion
   gem 'rspec_junit_formatter'
+  gem 'puppet-blacksmith'
 end
 
 group :rspec do
@@ -13,6 +14,7 @@ group :rspec do
   gem 'puppet-lint', '>= 0.3.2'
   gem 'facter', '>= 1.7.0'
   gem 'rspec-puppet', :git => 'https://github.com/rodjek/rspec-puppet.git'
+  gem 'puppet-syntax'
 end
 
 group :kitchen do
