@@ -13,6 +13,8 @@ exclude_paths = [
   "test/**/*"
 ]
 
+CLEAN.include('spec/fixtures/')
+CLOBBER.include('.tmp', '.librarian')
 PuppetLint.configuration.log_format = "%{path}:%{linenumber}:%{check}:%{KIND}:%{message}"
 PuppetLint.configuration.send("disable_80chars")
 PuppetLint.configuration.send("disable_autoloader_layout")

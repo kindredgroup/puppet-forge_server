@@ -20,3 +20,7 @@ end
 describe port(8080) do
   it { should be_listening }
 end
+
+describe command('puppet module install --module_repository=http://localhost:8080 puppetlabs-stdlib') do
+  its(:exit_status) { should eq 0 }
+end
