@@ -12,4 +12,5 @@ class forge_server::params {
   $proxy = 'http://forge.puppetlabs.com'
   $cache_basedir = '/var/lib/puppet-forge-server/cache'
   $log_dir = '/var/log/puppet-forge-server'
+  $provider = 'gem'
 }

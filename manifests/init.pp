@@ -74,7 +74,8 @@ class forge_server (
   $proxy            = $::forge_server::params::proxy,
   $cache_basedir    = $::forge_server::params::cache_basedir,
   $log_dir          = $::forge_server::params::log_dir,
-  $debug            = false
+  $debug            = false,
+  $provider         = 'gem'
 ) inherits forge_server::params {
 
   # contain class and ordering

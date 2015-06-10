@@ -13,7 +13,7 @@ class forge_server::package {
   } else {
     package { $forge_server::package:
       ensure   => present,
-      provider => gem
+      provider => $::forge_server::provider
     }
   }
 
