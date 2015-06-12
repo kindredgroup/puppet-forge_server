@@ -9,7 +9,8 @@ class forge_server::params {
   $port = 8080
   $bind_host = '127.0.0.1'
   $module_directory = '/var/lib/puppet-forge-server/modules'
-  $proxy = 'http://forge.puppetlabs.com'
+  $proxy = undef
   $cache_basedir = '/var/lib/puppet-forge-server/cache'
   $log_dir = '/var/log/puppet-forge-server'
+  $provider = 'gem'
 }
