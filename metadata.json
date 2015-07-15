@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "unibet",
   "summary": "A Puppet module to manage puppet-forge-server",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "https://github.com/unibet/puppet-forge_server.git",
   "project_page": "https://github.com/unibet/puppet-forge_server",
   "issues_url": "https://github.com/unibet/puppet-forge_server/issues",
