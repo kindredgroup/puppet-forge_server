@@ -1,6 +1,8 @@
 # forge_server
 
 [![Build Status](https://secure.travis-ci.org/unibet/puppet-forge_server.png)](http://travis-ci.org/unibet/puppet-forge_server)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/unibet/forge_server.svg)](https://forge.puppetlabs.com/unibet/forge_server)
+[![Puppet Forge](https://img.shields.io/puppetforge/f/unibet/forge_server.svg)](https://forge.puppetlabs.com/unibet/forge_server)
 
 #### Table of Contents
 
