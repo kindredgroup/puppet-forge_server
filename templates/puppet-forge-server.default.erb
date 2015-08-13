@@ -12,7 +12,7 @@ PARAMS="${PARAMS} --port <%= @port %>"
 
 <%- if @bind_host then -%>
 # Host name to bind to
-PARAMS="${PARAMS} --bind-host <%= @bind_host %>"
+PARAMS="${PARAMS} --bind <%= @bind_host %>"
 <%- end -%>
 
 <%- if @daemonize then -%>
