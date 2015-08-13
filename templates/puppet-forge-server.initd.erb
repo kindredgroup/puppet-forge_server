@@ -22,7 +22,7 @@ export GEM_PATH=/opt/rh/<%= @scl %>/root/usr/local/share/gems:/opt/rh/<%= @scl %
 export PATH=/opt/rh/<%= @scl %>/root/usr/bin:$PATH
 <%- end -%>
 
-<%- if @provider == "pe_gem" then -%>
+<%- if @provider == "pe_gem" or @provider == "puppet_gem" then -%>
 export PATH=$PATH:/opt/puppet/bin
 <%- end -%>
 
