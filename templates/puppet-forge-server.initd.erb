@@ -23,7 +23,10 @@ export PATH=/opt/rh/<%= @scl %>/root/usr/bin:$PATH
 <%- end -%>
 
 <%- if @provider == "pe_gem" then -%>
-export PATH=$PATH:/opt/puppet/bin
+export PATH=/opt/puppet/bin:$PATH
+<%- end -%>
+<%- if @provider == "puppet_gem" then -%>
+export PATH=/opt/puppetlabs/puppet/bin:$PATH
 <%- end -%>
 
 start() {
