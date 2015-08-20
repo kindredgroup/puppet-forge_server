@@ -46,6 +46,17 @@
 # [*debug*]
 #   Boolean to toggle debug
 #
+# [*provider*]
+#   Provider for the gem package install; defaults to gem; 
+#   can be set to pe_gem or puppet_gem depending on Puppet version
+#
+# [*pkg_ensure*]
+#   String specifying specific version number; possible values include:
+#     - 'latest': keep the gem package up to date (default)
+#     - '<version number>': install this specific version number
+#     - 'present': install the version available at the time of first run
+#       and do not update afterwards
+#
 # === Examples
 #
 #  class { '::forge_server':
@@ -75,7 +86,8 @@ class forge_server (
   $cache_basedir    = $::forge_server::params::cache_basedir,
   $log_dir          = $::forge_server::params::log_dir,
   $debug            = false,
-  $provider         = 'gem'
+  $provider         = 'gem',
+  $pkg_ensure       = 'latest',
 ) inherits forge_server::params {
 
   # contain class and ordering

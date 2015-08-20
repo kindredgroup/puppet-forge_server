@@ -12,8 +12,17 @@ class forge_server::package {
     }
   } else {
     package { $forge_server::package:
-      ensure   => present,
+      ensure   => $::forge_server::pkg_ensure,
       provider => $::forge_server::provider
+    }
+  }
+
+  # If we are ensuring the latest gem package, uninstall old versions
+  if $::forge_server::pkg_ensure == 'latest' {
+    exec { "gem cleanup ${::forge_server::package}":
+      path        => '/usr/bin',
+      refreshonly => true,
+      subscribe   => Package["$::forge_server::package"],
     }
   }
 
