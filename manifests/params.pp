@@ -13,5 +13,5 @@ class forge_server::params {
   $cache_basedir = '/var/lib/puppet-forge-server/cache'
   $log_dir = '/var/log/puppet-forge-server'
   $provider = 'gem'
-  $pkg_ensure = 'latest'
+  $pkg_ensure = 'present'
 }

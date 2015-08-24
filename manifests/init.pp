@@ -87,7 +87,7 @@ class forge_server (
   $log_dir          = $::forge_server::params::log_dir,
   $debug            = false,
   $provider         = 'gem',
-  $pkg_ensure       = 'latest',
+  $pkg_ensure       = 'present',
 ) inherits forge_server::params {
 
   # contain class and ordering
