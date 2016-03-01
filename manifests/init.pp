@@ -10,6 +10,12 @@
 # [*scl*]
 #   Name of ruby scl environment, leave undef to use system ruby
 #
+# [*scl_install_timeout*]
+#   If using ruby scl, the timeout in seconds to allow the gem installation to run
+#
+# [*scl_install_retries*]
+#   If using ruby scl, the number of retries allowed if gem installation fails
+#
 # [*service_enable*]
 #   Boolean if service should be enabled on boot
 #
@@ -61,22 +67,33 @@
 # Copyright 2014 North Development AB
 #
 class forge_server (
-  $package          = $::forge_server::params::package,
-  $scl              = undef,
-  $service_enable   = true,
-  $service_ensure   = 'running',
-  $service_refresh  = true,
-  $pidfile          = $::forge_server::params::pidfile,
-  $port             = $::forge_server::params::port,
-  $bind_host        = $::forge_server::params::bind_host,
-  $daemonize        = true,
-  $module_directory = $::forge_server::params::module_directory,
-  $proxy            = $::forge_server::params::proxy,
-  $cache_basedir    = $::forge_server::params::cache_basedir,
-  $log_dir          = $::forge_server::params::log_dir,
-  $debug            = false,
-  $provider         = 'gem'
+  $package             = $::forge_server::params::package,
+  $scl                 = undef,
+  $scl_install_timeout = $::forge_server::params::scl_install_timeout,
+  $scl_install_retries = $::forge_server::params::scl_install_retries,
+  $service_enable      = true,
+  $service_ensure      = 'running',
+  $service_refresh     = true,
+  $pidfile             = $::forge_server::params::pidfile,
+  $port                = $::forge_server::params::port,
+  $bind_host           = $::forge_server::params::bind_host,
+  $daemonize           = true,
+  $module_directory    = $::forge_server::params::module_directory,
+  $proxy               = $::forge_server::params::proxy,
+  $cache_basedir       = $::forge_server::params::cache_basedir,
+  $log_dir             = $::forge_server::params::log_dir,
+  $debug               = false,
+  $provider            = 'gem'
 ) inherits forge_server::params {
+
+  if $scl {
+    validate_integer($scl_install_timeout)
+    validate_integer($scl_install_retries)
+  }
+
+  validate_absolute_path($module_directory)
+  validate_absolute_path($cache_basedir)
+  validate_absolute_path($log_dir)
 
   # contain class and ordering
   anchor { '::forge_server::begin': } ->

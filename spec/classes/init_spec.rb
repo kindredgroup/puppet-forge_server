@@ -16,12 +16,13 @@ describe 'forge_server' do
 
   context 'with single module path and proxy' do
     let(:params) { {
-      :module_directory => 'dir1',
+      :module_directory => '/dir1',
       :proxy            => 'proxy1'
     } }
 
+    it { should compile.with_all_deps }
     it {
-      should contain_file('/etc/default/puppet-forge-server').with_content(/PARAMS="\${PARAMS} --module-dir \\"dir1\\""\n\n/)
+      should contain_file('/etc/default/puppet-forge-server').with_content(/PARAMS="\${PARAMS} --module-dir \\"\/dir1\\""\n\n/)
     }
     it {
       should contain_file('/etc/default/puppet-forge-server').with_content(/PARAMS="\${PARAMS} --proxy proxy1"\n\n/)
@@ -34,6 +35,7 @@ describe 'forge_server' do
       :proxy            => ['proxy1', 'proxy2']
     } }
 
+    it { should compile.with_all_deps }
     it {
       should contain_file('/etc/default/puppet-forge-server').with_content(/PARAMS="\${PARAMS} --module-dir \\"\/dir1\\""\nPARAMS="\${PARAMS} --module-dir \\"\/dir2\\""\n/)
     }
@@ -47,6 +49,7 @@ describe 'forge_server' do
       :service_refresh  => false
     } }
 
+    it { should compile.with_all_deps }
     it {
       should_not contain_class('::forge_server::package').that_notifies('Class[::forge_server::service]')
     }
@@ -60,6 +63,7 @@ describe 'forge_server' do
       :scl  => 'ruby193'
     } }
 
+    it { should compile.with_all_deps }
     it {
       should_not contain_package('puppet-forge-server')
     }
@@ -71,6 +75,18 @@ describe 'forge_server' do
     it {
       should contain_file('/etc/init.d/puppet-forge-server').with_content(/export LD_LIBRARY_PATH=.*\nexport GEM_PATH=.*\nexport PATH=.*\n/)
     }
+  end
+
+  context 'with scl => ruby193, scl_install_timeout => 60000, scl_install_retries => 10' do
+    let(:params) { {
+      :scl                 => 'ruby193',
+      :scl_install_timeout => 60000,
+      :scl_install_retries => 10
+    } }
+
+    it { should compile.with_all_deps }
+    it { should contain_exec('scl_install_forge_server').with_timeout(60000) }
+    it { should contain_exec('scl_install_forge_server').with_tries(10) }
   end
 
 end

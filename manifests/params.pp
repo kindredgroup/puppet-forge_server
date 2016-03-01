@@ -13,4 +13,6 @@ class forge_server::params {
   $cache_basedir = '/var/lib/puppet-forge-server/cache'
   $log_dir = '/var/log/puppet-forge-server'
   $provider = 'gem'
+  $scl_install_timeout = 300
+  $scl_install_retries = 1
 }
