@@ -1,16 +1,24 @@
-rvm: 1.9.3
-env:
-  - PUPPET_VERSION=3.7.3
+sudo: false
+language: ruby
+bundler_args: --without kitchen
 script:
   - bundle exec rake lint
   - bundle exec rake validate
   - bundle exec rake spec
-before_deploy:
-  - bundle exec rake clean
-  - bundle exec rake set_travis_version
+matrix:
+  include:
+  - rvm: 1.9.3
+    env: PUPPET_VERSION="= 3.7.3" DEPLOY="true"
+  - rvm: 1.9.3
+    env: PUPPET_VERSION="= 3.7.3" FUTURE_PARSER="yes"
+  - rvm: 1.9.3
+    env: PUPPET_VERSION="~> 4.0"
 deploy:
-  skip_cleanup: true
   provider: puppetforge
+  on:
+    tags: true
+    branch: master
+    condition: "$DEPLOY = true"
   user:
     secure: "STo4ZjU5uJNB68QAHzVCKi2PKSMZ/SCP8+RPZOJBh7s1YMkAINu0cbvKTvPEqgjlZ45KVJc8Nh8AzdVS6khzBxEwU/60C9ms15mBE+f+AOBPKgV55pKk4UxCCAlodWW9alBeuBylxpuKqO5o4xnOQtXdkse3u6IBduXO/zWyjso="
   password:
