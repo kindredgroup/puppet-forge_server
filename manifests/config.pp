@@ -36,7 +36,7 @@ class forge_server::config {
   }
 
   # On a systemd server create config file for tmpfiles.d
-  if $facts['operatingsystem'] in ['RedHat', 'CentOS', 'Fedora', 'Scientific', 'OracleLinux', 'SLC'] and 
+  if $facts['operatingsystem'] in ['RedHat', 'CentOS', 'Fedora', 'Scientific', 'OracleLinux', 'SLC'] and
   versioncmp($facts['operatingsystemmajrelease'], '7') >= 0 {
     file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
       ensure  => present,
