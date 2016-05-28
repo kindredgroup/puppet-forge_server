@@ -7,6 +7,7 @@ class forge_server::config {
   # Scope config variables for templates
   $user = $::forge_server::user
   $pidfile = $::forge_server::pidfile
+  $pid_dir = dirname($::forge_server::pidfile)
   $port = $::forge_server::port
   $bind_host = $::forge_server::bind_host
   $daemonize = $::forge_server::daemonize
@@ -32,6 +33,21 @@ class forge_server::config {
     group   => 'root',
     mode    => '0755',
     content => template("${module_name}/puppet-forge-server.initd.erb")
+  }
+
+  # On a systemd server create config file for tmpfiles.d
+  case $::operatingsystem {
+    'RedHat', 'CentOS', 'Fedora', 'Scientific', 'OracleLinux', 'SLC': {
+      if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
+        file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          content => template("${module_name}/puppet-forge-server.tmpfilesd.erb")
+        }
+      }
+    }
   }
 
 }
