@@ -35,12 +35,7 @@ export GEM_PATH=/opt/rh/<%= @scl %>/root/usr/local/share/gems:/opt/rh/<%= @scl %
 export PATH=/opt/rh/<%= @scl %>/root/usr/bin:$PATH
 <%- end -%>
 
-<%- if @provider == "pe_gem" then -%>
-export PATH=/opt/puppet/bin:$PATH
-<%- end -%>
-<%- if @provider == "puppet_gem" then -%>
-export PATH=/opt/puppetlabs/puppet/bin:$PATH
-<%- end -%>
+<%= if @is_pe == true or @is_pe == 'true' then 'export PATH=/opt/puppet/bin:$PATH' elsif @puppetversion >= '4.2.0' then 'export PATH=/opt/puppetlabs/puppet/bin:$PATH' else '/usr/bin' end %>/ruby
 
 start() {
         echo -n "Starting $prog: "
