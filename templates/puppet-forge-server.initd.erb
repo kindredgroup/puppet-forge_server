@@ -23,8 +23,9 @@
 . /etc/init.d/functions
 
 RETVAL=0
-prog="puppet-forge-server"
-LOCKFILE=/var/lock/subsys/$prog
+binary ="puppet-forge-server"
+prog="/usr/local/bin/puppet-forge-server"
+LOCKFILE=/var/lock/subsys/$binary
 
 . /etc/default/puppet-forge-server
 
@@ -43,7 +44,7 @@ export PATH=/opt/puppetlabs/puppet/bin:$PATH
 <%- end -%>
 
 start() {
-        echo -n "Starting $prog: "
+        echo -n "Starting $binary: "
         daemon --user=<%= @user %> --pidfile=<%= @pidfile %> "$prog $PARAMS"
         RETVAL=$?
         [ $RETVAL -eq 0 ] && touch $LOCKFILE
@@ -52,8 +53,8 @@ start() {
 }
 
 stop() {
-        echo -n "Shutting down $prog: "
-        killproc -p <%= @pidfile %> $prog
+        echo -n "Shutting down $binary: "
+        killproc -p <%= @pidfile %> $binary
         RETVAL=$?
         [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
         echo
@@ -61,8 +62,8 @@ stop() {
 }
 
 rh_status() {
-        echo -n "Checking $prog status: "
-        status -p <%= @pidfile %> $prog
+        echo -n "Checking $binary status: "
+        status -p <%= @pidfile %> $binary
         #ps -p $(cat <%= @pidfile %>)
         RETVAL=$?
         return $RETVAL
