@@ -61,14 +61,14 @@ class forge_server::config {
           content => template("${module_name}/puppet-forge-server.initd.erb")
         }
       }
-      default: {
-        file { '/etc/init.d/puppet-forge-server':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0755',
-          content => template("${module_name}/puppet-forge-server.initd.erb")
-        }
+    }
+    default: {
+      file { '/etc/init.d/puppet-forge-server':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        content => template("${module_name}/puppet-forge-server.initd.erb")
       }
     }
   }
