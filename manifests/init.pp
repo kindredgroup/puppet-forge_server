@@ -91,7 +91,7 @@ class forge_server (
       validate_integer($scl_install_timeout)
       validate_integer($scl_install_retries)
     } else {
-      fail("SCL is not a valid configuration option for $::osfamily systems")
+      fail("SCL is not a valid configuration option for ${::osfamily} systems")
     }
   }
 
