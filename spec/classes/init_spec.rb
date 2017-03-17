@@ -124,6 +124,8 @@ describe 'forge_server' do
         it {
           should contain_file('/etc/init.d/puppet-forge-server').with_content(/export LD_LIBRARY_PATH=.*\nexport GEM_PATH=.*\nexport PATH=.*\n/)
         }
+      when 'Debian'
+        it { should_not compile }
       end
     end
 
@@ -144,6 +146,8 @@ describe 'forge_server' do
         it { should compile.with_all_deps }
         it { should contain_exec('scl_install_forge_server').with_timeout(60000) }
         it { should contain_exec('scl_install_forge_server').with_tries(10) }
+      when 'Debian'
+        it { should_not compile }
       end
     end
   end
