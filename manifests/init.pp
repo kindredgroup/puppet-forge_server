@@ -87,8 +87,12 @@ class forge_server (
 ) inherits forge_server::params {
 
   if $scl {
-    validate_integer($scl_install_timeout)
-    validate_integer($scl_install_retries)
+    if $::osfamily == 'RedHat' {
+      validate_integer($scl_install_timeout)
+      validate_integer($scl_install_retries)
+    } else {
+      fail("SCL is not a valid configuration option for ${::osfamily} systems")
+    }
   }
 
   validate_absolute_path($module_directory)

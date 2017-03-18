@@ -1,0 +1,58 @@
+# MANAGED BY PUPPET
+
+<%- if @pidfile then -%>
+# Write a pidfile to this location after starting
+PARAMS="${PARAMS} --pidfile <%= @pidfile %>"
+<%- end -%>
+
+<%- if @port then -%>
+# Port to listen on
+PARAMS="${PARAMS} --port <%= @port %>"
+<%- end -%>
+
+<%- if @bind_host then -%>
+# Host name to bind to
+PARAMS="${PARAMS} --bind <%= @bind_host %>"
+<%- end -%>
+
+<%- if @daemonize then -%>
+# Run the server in the background
+PARAMS="${PARAMS} --daemonize"
+<%- end -%>
+
+<%- if @module_directory then -%>
+# Directory containing packaged modules (can be specified multiple times)
+<%- if @module_directory.is_a? Array then
+@module_directory.each do |md| -%>
+PARAMS="${PARAMS} --module-dir <%= md %>"
+<%- end
+else -%>
+PARAMS="${PARAMS} --module-dir <%= @module_directory %>"
+<%- end
+end -%>
+
+<%- if @proxy then -%>
+# Remote forge to proxy (can be specified multiple times)
+<%- if @proxy.is_a? Array then
+@proxy.each do |pr| -%>
+PARAMS="${PARAMS} --proxy <%= pr %>"
+<%- end
+else -%>
+PARAMS="${PARAMS} --proxy <%= @proxy %>"
+<%- end
+end -%>
+
+<%- if @cache_basedir then -%>
+# Cache all proxies' downloaded modules under this directory
+PARAMS="${PARAMS} --cache-basedir <%= @cache_basedir %>"
+<%- end -%>
+
+<%- if @log_dir then -%>
+# Directory containing all server logs
+PARAMS="${PARAMS} --log-dir <%= @log_dir %>"
+<%- end -%>
+
+<%- if @debug then -%>
+# Log everything into STDERR
+PARAMS="${PARAMS} --debug"
+<%- end -%>

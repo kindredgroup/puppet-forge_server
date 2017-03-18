@@ -24,7 +24,7 @@ class forge_server::config {
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template("${module_name}/puppet-forge-server.default.erb")
+    content => template("${module_name}/${::osfamily}/puppet-forge-server.default.erb")
   }
 
   file { '/etc/init.d/puppet-forge-server':
@@ -32,7 +32,7 @@ class forge_server::config {
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template("${module_name}/puppet-forge-server.initd.erb")
+    content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
   }
 
   # On a systemd server create config file for tmpfiles.d
