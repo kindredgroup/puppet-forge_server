@@ -58,7 +58,7 @@ class forge_server::config {
           owner   => 'root',
           group   => 'root',
           mode    => '0755',
-          content => template("${module_name}/puppet-forge-server.initd.erb")
+          content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
         }
       }
     }
@@ -68,7 +68,7 @@ class forge_server::config {
         owner   => 'root',
         group   => 'root',
         mode    => '0755',
-        content => template("${module_name}/puppet-forge-server.initd.erb")
+        content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
       }
     }
   }
