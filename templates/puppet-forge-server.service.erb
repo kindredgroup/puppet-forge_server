@@ -1,0 +1,34 @@
+[Unit]
+Description=Puppet Forge Server
+After=network.target
+
+[Service]
+<%- if @scl then -%>
+# SCL is a bit hacky
+Environment=LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/<%= @scl %>/root/usr/lib64:/opt/rh/<%= @scl %>/root/usr/local/share/gems:/opt/rh/<%= @scl %>/root/usr/share/gems
+Environment=GEM_PATH=/opt/rh/<%= @scl %>/root/usr/local/share/gems:/opt/rh/<%= @scl %>/root/usr/share/gems
+Environment=PATH=/opt/rh/<%= @scl %>/root/usr/bin:$PATH
+<%- end -%>
+
+<%- if @provider == "pe_gem" then -%>
+Environment=PATH=/opt/puppet/bin:$PATH
+<%- end -%>
+<%- if @provider == "puppet_gem" then -%>
+Environment=PATH=/opt/puppetlabs/puppet/bin:$PATH
+<%- end -%>
+
+Type=simple
+User=<%= @user %>
+Group=<%= @user %>
+ExecStart=/bin/bash -c 'puppet-forge-server <%- if @pidfile then -%>--pidfile "<%= @pidfile -%>"<%- end -%><%- if @port then -%> --port <%= @port %><%- end -%><%- if @bind_host then -%> --bind <%= @bind_host -%><%- end -%><%- if @module_directory then -%><%- if @module_directory.is_a? Array then @module_directory.each do |md| -%> --module-dir "<%= md %>"<%- end else -%> --module-dir "<%= @module_directory %>"<%- end end -%><%- if @proxy then -%><%- if @proxy.is_a? Array then @proxy.each do |pr| -%> --proxy <%= pr %><%- end else -%> --proxy <%= @proxy %><%- end end -%><%- if @cache_basedir then -%> --cache-basedir "<%= @cache_basedir %>"<%- end -%><%- if @log_dir then -%> --log-dir "<%= @log_dir %>"<%- end -%><%- if @debug then -%> --debug<%- end -%>'
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=300
+
+<%- if @http_proxy -%>
+Environment=HTTP_PROXY=<%= @http_proxy %>
+Environment=HTTPS_PROXY=<%= @http_proxy %>
+<%- end -%>
+
+[Install]
+WantedBy=multi-user.target

@@ -42,6 +42,12 @@ export PATH=/opt/puppet/bin:$PATH
 export PATH=/opt/puppetlabs/puppet/bin:$PATH
 <%- end -%>
 
+<%- if @http_proxy -%>
+export HTTP_PROXY=<%= @http_proxy %>
+export HTTPS_PROXY=<%= @http_proxy %>
+<%- end -%>
+
+
 start() {
         echo -n "Starting $prog: "
         daemon --user=<%= @user %> --pidfile=<%= @pidfile %> "$prog $PARAMS"
