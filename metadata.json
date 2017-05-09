@@ -1,6 +1,6 @@
 {
   "name": "unibet-forge_server",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "unibet",
   "summary": "A Puppet module to manage puppet-forge-server",
   "license": "Apache-2.0",
@@ -8,7 +8,7 @@
   "project_page": "https://github.com/unibet/puppet-forge_server",
   "issues_url": "https://github.com/unibet/puppet-forge_server/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0 <= 4.12.0"}
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
   "operatingsystem_support": [
     {

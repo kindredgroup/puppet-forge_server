@@ -27,14 +27,6 @@ class forge_server::config {
     content => template("${module_name}/${::osfamily}/puppet-forge-server.default.erb")
   }
 
-  file { '/etc/init.d/puppet-forge-server':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0755',
-    content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
-  }
-
   # On a systemd server create config file for tmpfiles.d
   case $::operatingsystem {
     'RedHat', 'CentOS', 'Fedora', 'Scientific', 'OracleLinux', 'SLC': {
@@ -46,8 +38,38 @@ class forge_server::config {
           mode    => '0644',
           content => template("${module_name}/puppet-forge-server.tmpfilesd.erb")
         }
+        file { '/etc/systemd/system/puppet-forge-server.service':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0640',
+          content => template("${module_name}/puppet-forge-server.service.erb"),
+          notify  => Exec['forge_systemctl-daemon-reload'],
+        }
+        exec { 'forge_systemctl-daemon-reload':
+          command     => 'systemctl daemon-reload',
+          path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
+          refreshonly => true,
+        }
+      }
+      else {
+        file { '/etc/init.d/puppet-forge-server':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0755',
+          content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
+        }
+      }
+    }
+    default: {
+      file { '/etc/init.d/puppet-forge-server':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0755',
+        content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
       }
     }
   }
-
 }

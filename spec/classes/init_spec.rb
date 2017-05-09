@@ -121,9 +121,11 @@ describe 'forge_server' do
             :command  => "scl enable ruby193 'gem install --bindir /usr/bin --no-rdoc --no-ri puppet-forge-server'"
           )
         }
-        it {
-          should contain_file('/etc/init.d/puppet-forge-server').with_content(/export LD_LIBRARY_PATH=.*\nexport GEM_PATH=.*\nexport PATH=.*\n/)
-        }
+        if facts[:release] == 6
+          it {
+            should contain_file('/etc/init.d/puppet-forge-server').with_content(/export LD_LIBRARY_PATH=.*\nexport GEM_PATH=.*\nexport PATH=.*\n/)
+          }
+        end
       when 'Debian'
         it { should_not compile }
       end
