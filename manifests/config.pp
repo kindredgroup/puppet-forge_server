@@ -12,6 +12,7 @@ class forge_server::config {
   $bind_host = $::forge_server::bind_host
   $daemonize = $::forge_server::daemonize
   $module_directory = $::forge_server::module_directory
+  $http_proxy = $::forge_server::http_proxy
   $proxy = $::forge_server::proxy
   $cache_basedir = $::forge_server::cache_basedir
   $log_dir = $::forge_server::log_dir
