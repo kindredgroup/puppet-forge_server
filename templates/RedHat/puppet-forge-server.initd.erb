@@ -37,6 +37,12 @@ export PATH=/opt/rh/<%= @scl %>/root/usr/bin:$PATH
 
 <%= if @is_pe == true or @is_pe == 'true' then 'export PATH=/opt/puppet/bin:$PATH' elsif @puppetversion >= '4.2.0' then 'export PATH=/opt/puppetlabs/puppet/bin:$PATH' else '/usr/bin' end %>
 
+<%- if @http_proxy -%>
+export HTTP_PROXY=<%= @http_proxy %>
+export HTTPS_PROXY=<%= @http_proxy %>
+<%- end -%>
+
+
 start() {
         echo -n "Starting $prog: "
         daemon --user=<%= @user %> --pidfile=<%= @pidfile %> "$prog $PARAMS"
