@@ -40,6 +40,9 @@
 # [*module_directory*]
 #   Directory of modules to serve, can be an array of directories
 #
+# [*http_proxy*]
+#   Use proxyserver for http(s) connections
+#
 # [*proxy*]
 #   Proxy requests to this upstream forge url
 #
@@ -79,6 +82,7 @@ class forge_server (
   $bind_host           = $::forge_server::params::bind_host,
   $daemonize           = true,
   $module_directory    = $::forge_server::params::module_directory,
+  $http_proxy          = $::forge_server::params::http_proxy,
   $proxy               = $::forge_server::params::proxy,
   $cache_basedir       = $::forge_server::params::cache_basedir,
   $log_dir             = $::forge_server::params::log_dir,
@@ -87,8 +91,12 @@ class forge_server (
 ) inherits forge_server::params {
 
   if $scl {
-    validate_integer($scl_install_timeout)
-    validate_integer($scl_install_retries)
+    if $::osfamily == 'RedHat' {
+      validate_integer($scl_install_timeout)
+      validate_integer($scl_install_retries)
+    } else {
+      fail("SCL is not a valid configuration option for ${::osfamily} systems")
+    }
   }
 
   validate_absolute_path($module_directory)

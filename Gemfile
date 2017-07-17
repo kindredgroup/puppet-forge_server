@@ -14,6 +14,7 @@ group :rspec do
   gem 'puppet-lint', '< 1.1.0'
   gem 'facter', '>= 1.7.0'
   gem 'rspec-puppet', :git => 'https://github.com/rodjek/rspec-puppet.git'
+  gem 'rspec-puppet-facts', :require => false
   gem 'puppet-syntax'
   gem 'metadata-json-lint'
 end
