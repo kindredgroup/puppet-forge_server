@@ -10,19 +10,17 @@ group :rspec, :kitchen do
 end
 
 group :rspec do
+  if RUBY_VERSION <= '1.9.3'
+    gem 'public_suffix', '1.4.6'
+    gem 'metadata-json-lint', '1.2.2'
+    gem 'rspec_junit_formatter', '0.2.3'
+  end
   gem 'puppetlabs_spec_helper', '>= 0.1.0'
   gem 'puppet-lint', '< 1.1.0'
   gem 'facter', '>= 1.7.0'
   gem 'rspec-puppet', :git => 'https://github.com/rodjek/rspec-puppet.git'
   gem 'rspec-puppet-facts', :require => false
   gem 'puppet-syntax'
-  if RUBY_VERSION <= '1.9.3'
-    gem 'public_suffix', '1.4.6'
-    gem 'metadata-json-lint', '1.2.2'
-  else
-    gem 'public_suffix'
-    gem 'metadata-json-lint'
-  end
 end
 
 group :kitchen do
