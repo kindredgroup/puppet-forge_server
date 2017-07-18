@@ -5,7 +5,7 @@ puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : '>=3.7.3'
 group :rspec, :kitchen do
   if RUBY_VERSION <= '1.9.3'
     gem 'public_suffix', '1.4.6'
-    gem 'metadata-json-lint', '1.2.2'
+    gem 'metadata-json-lint', '0.0.19'
     gem 'rspec_junit_formatter', '0.2.3'
   else
     gem 'public_suffix'
