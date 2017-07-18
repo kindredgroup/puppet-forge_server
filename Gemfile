@@ -3,11 +3,6 @@ source 'https://rubygems.org'
 puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : '>=3.7.3'
 
 group :rspec, :kitchen do
-  if RUBY_VERSION <= '1.9.3'
-    gem 'public_suffix', '1.4.6'
-  else
-    gem 'public_suffix'
-  end
   gem 'librarian-puppet'
   gem 'puppet', puppetversion
   gem 'rspec_junit_formatter'
@@ -21,7 +16,13 @@ group :rspec do
   gem 'rspec-puppet', :git => 'https://github.com/rodjek/rspec-puppet.git'
   gem 'rspec-puppet-facts', :require => false
   gem 'puppet-syntax'
-  gem 'metadata-json-lint'
+  if RUBY_VERSION <= '1.9.3'
+    gem 'public_suffix', '1.4.6'
+    gem 'metadata-json-lint', '1.2.2'
+  else
+    gem 'public_suffix'
+    gem 'metadata-json-lint'
+  end
 end
 
 group :kitchen do
