@@ -14,7 +14,6 @@ group :rspec, :kitchen do
   end
   gem 'librarian-puppet'
   gem 'puppet', puppetversion
-  gem 'rspec_junit_formatter'
   gem 'puppet-blacksmith'
 end
 
