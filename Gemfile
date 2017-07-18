@@ -14,6 +14,10 @@ group :rspec do
     gem 'public_suffix', '1.4.6'
     gem 'metadata-json-lint', '1.2.2'
     gem 'rspec_junit_formatter', '0.2.3'
+  else
+    gem 'public_suffix'
+    gem 'metadata-json-lint'
+    gem 'rspec_junit_formatter'
   end
   gem 'puppetlabs_spec_helper', '>= 0.1.0'
   gem 'puppet-lint', '< 1.1.0'
