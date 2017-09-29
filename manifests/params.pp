@@ -3,7 +3,8 @@
 # Default settings
 #
 class forge_server::params {
-  $package = 'puppet-forge-server'
+  $lkg_package = '1.9.1'
+  $package = "puppet-forge-server:>=${lkg_package}"
   $user = 'forge'
   $user_homedir = '/home/forge'
   $pidfile = '/var/run/puppet-forge-server/forge-server.pid'
