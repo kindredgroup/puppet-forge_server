@@ -46,7 +46,7 @@ start() {
 
 stop() {
         echo -n "Shutting down $NAME: "
-        start-stop-daemon --stop --quiet --oknodo --pidfile=<%= @pidfile %>
+        start-stop-daemon --stop --quiet --oknodo --pidfile=<%= @pidfile %> --retry 5
         RETVAL=$?
         [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
         [ $RETVAL -eq 0 ] && echo ok || echo fail
