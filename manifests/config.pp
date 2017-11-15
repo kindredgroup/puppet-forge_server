@@ -63,6 +63,30 @@ class forge_server::config {
         }
       }
     }
+    'SLES': {
+      if versioncmp($::operatingsystemmajrelease, '12') >= 0 {
+         file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          content => template("${module_name}/puppet-forge-server.tmpfilesd.erb")
+        }
+        file { '/usr/lib/systemd/system/puppet-forge-server.service':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0640',
+          content => template("${module_name}/${::osfamily}/puppet-forge-server.service.erb"),
+          notify  => Exec['forge_systemctl-daemon-reload'],
+        }
+        exec { 'forge_systemctl-daemon-reload':
+          command     => 'systemctl daemon-reload',
+          path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
+          refreshonly => true,
+        }       
+      }
+    }
     default: {
       file { '/etc/init.d/puppet-forge-server':
         ensure  => present,

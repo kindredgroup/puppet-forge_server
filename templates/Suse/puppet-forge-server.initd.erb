@@ -1,0 +1,96 @@
+#!/bin/bash
+#
+# puppet-forge-server    Puppet Forge Server
+#
+# chkconfig: 2345 70 30
+# description: Puppet Forge Server is a repository server for serving Puppet modules
+# processname: puppet-forge-server
+
+### BEGIN INIT INFO
+# Provides: puppet-forge-server
+# Required-Start: $local_fs $network $syslog
+# Required-Stop: $local_fs $syslog
+# Should-Start: $syslog
+# Should-Stop: $network $syslog
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: Start up the Puppet Forge Server.
+# Description:       Puppet Forge Server is a repository server for
+#                    serving Puppet modules
+### END INIT INFO
+
+# Source function library.
+. /etc/init.d/functions
+
+RETVAL=0
+prog="puppet-forge-server"
+LOCKFILE=/var/lock/subsys/$prog
+
+. /etc/default/puppet-forge-server
+
+<%- if @scl then -%>
+# SCL is a bit hacky
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rh/<%= @scl %>/root/usr/lib64:/opt/rh/<%= @scl %>/root/usr/local/share/gems:/opt/rh/<%= @scl %>/root/usr/share/gems
+export GEM_PATH=/opt/rh/<%= @scl %>/root/usr/local/share/gems:/opt/rh/<%= @scl %>/root/usr/share/gems
+export PATH=/opt/rh/<%= @scl %>/root/usr/bin:$PATH
+<%- end -%>
+
+<%- if @provider == "pe_gem" then -%>
+export PATH=/opt/puppet/bin:$PATH
+<%- end -%>
+<%- if @provider == "puppet_gem" then -%>
+export PATH=/opt/puppetlabs/puppet/bin:$PATH
+<%- end -%>
+
+<%- if @http_proxy -%>
+export HTTP_PROXY=<%= @http_proxy %>
+export HTTPS_PROXY=<%= @http_proxy %>
+<%- end -%>
+
+
+start() {
+        echo -n "Starting $prog: "
+        daemon --user=<%= @user %> --pidfile=<%= @pidfile %> "$prog $PARAMS"
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && touch $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+stop() {
+        echo -n "Shutting down $prog: "
+        killproc -p <%= @pidfile %> $prog
+        RETVAL=$?
+        [ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+        echo
+        return $RETVAL
+}
+
+rh_status() {
+        echo -n "Checking $prog status: "
+        status -p <%= @pidfile %> $prog
+        #ps -p $(cat <%= @pidfile %>)
+        RETVAL=$?
+        return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        rh_status
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
+exit $RETVAL
