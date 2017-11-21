@@ -55,6 +55,15 @@
 # [*debug*]
 #   Boolean to toggle debug
 #
+# [*manage_user*]
+#   Boolean to toggle management of user and group resources
+#
+# [*userid*]
+#   Fixed UID of the forge user
+#
+# [*groupid*]
+#   Fixed GID of the forge group
+#
 # === Examples
 #
 #  class { '::forge_server':
@@ -87,7 +96,10 @@ class forge_server (
   $cache_basedir       = $::forge_server::params::cache_basedir,
   $log_dir             = $::forge_server::params::log_dir,
   $debug               = false,
-  $provider            = 'gem'
+  $provider            = 'gem',
+  $manage_user         = true,
+  $userid              = undef,
+  $groupid             = undef
 ) inherits forge_server::params {
 
   if $scl {
