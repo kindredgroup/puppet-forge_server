@@ -10,19 +10,19 @@ group :rspec, :kitchen do
 end
 
 group :rspec do
-  gem 'puppetlabs_spec_helper', '>= 0.1.0'
+  gem 'puppetlabs_spec_helper', '~> 1.1'
   gem 'puppet-lint', '< 1.1.0'
-  gem 'facter', '>= 1.7.0'
+  gem 'facter', '~> 2.5'
   gem 'rspec-puppet', :git => 'https://github.com/rodjek/rspec-puppet.git'
   gem 'rspec-puppet-facts', :require => false
   gem 'puppet-syntax'
-  gem 'metadata-json-lint'
+  gem 'metadata-json-lint', '~> 1.1.0'
 end
 
 group :kitchen do
-  gem 'test-kitchen'
+  gem 'test-kitchen', '~> 1.16.0'
   gem 'kitchen-docker'
-  gem 'kitchen-puppet', :git => 'https://github.com/neillturner/kitchen-puppet.git'
+  gem 'kitchen-puppet', :git => 'https://github.com/neillturner/kitchen-puppet.git', :tag => '3.1.1'
   gem 'kitchen-vagrant'
   gem 'vagrant-wrapper'
 end
