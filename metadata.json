@@ -1,6 +1,6 @@
 {
   "name": "unibet-forge_server",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "author": "unibet",
   "summary": "A Puppet module to manage puppet-forge-server",
   "license": "Apache-2.0",
