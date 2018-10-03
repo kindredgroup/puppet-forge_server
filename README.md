@@ -30,7 +30,7 @@ This module installs the puppet-forge-server gem and runs the service as a daemo
 ### What forge_server affects
 
 * Unprivileged forge user to run the daemon
-* Gem installation either in system ruby or specific SCL
+* Gem installation either in system ruby, Puppet ruby or specific SCL
 * Manages the puppet-forge-server service
 
 ### Setup Requirements
@@ -51,6 +51,14 @@ To install puppet-forge-server:
 
 ```
 class { '::forge_server': }
+```
+
+To install using Puppet ruby:
+
+```
+class { '::forge_server':
+  provider => 'puppet_gem',
+}
 ```
 
 ## Reference

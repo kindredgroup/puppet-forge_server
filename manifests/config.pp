@@ -65,7 +65,7 @@ class forge_server::config {
     }
     'SLES': {
       if versioncmp($::operatingsystemmajrelease, '12') >= 0 {
-         file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
+        file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
           ensure  => present,
           owner   => 'root',
           group   => 'root',
@@ -84,7 +84,7 @@ class forge_server::config {
           command     => 'systemctl daemon-reload',
           path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
           refreshonly => true,
-        }       
+        }
       }
     }
     default: {
