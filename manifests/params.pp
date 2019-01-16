@@ -17,4 +17,5 @@ class forge_server::params {
   $http_proxy    = undef
   $scl_install_timeout = 300
   $scl_install_retries = 1
+  $forge_server_script = 'puppet-forge-server.ruby2.1'
 }
