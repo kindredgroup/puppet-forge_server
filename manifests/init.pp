@@ -55,6 +55,9 @@
 # [*debug*]
 #   Boolean to toggle debug
 #
+# [*forge_server_script*]
+#   Name of the script which runs the forge server, depending on ruby version installed
+#
 # === Examples
 #
 #  class { '::forge_server':
@@ -87,7 +90,8 @@ class forge_server (
   $cache_basedir       = $::forge_server::params::cache_basedir,
   $log_dir             = $::forge_server::params::log_dir,
   $debug               = false,
-  $provider            = 'gem'
+  $provider            = 'gem',
+  $forge_server_script = $::forge_server::forge_server_script
 ) inherits forge_server::params {
 
   if $scl {

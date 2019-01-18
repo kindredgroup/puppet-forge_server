@@ -19,6 +19,7 @@ class forge_server::config {
   $debug = $::forge_server::debug
   $scl = $::forge_server::scl
   $provider = $::forge_server::provider
+  $forge_server_script = $::forge_server::forge_server_script
 
   file { '/etc/default/puppet-forge-server':
     ensure  => present,
