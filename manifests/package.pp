@@ -3,6 +3,13 @@
 # Installs puppet-forge-server
 #
 class forge_server::package {
+  package {'ruby-devel':
+    ensure => present,
+  }
+
+  package {'gcc':
+    ensure => present,
+  }
 
   if $::forge_server::scl {
     exec { 'scl_install_forge_server':
