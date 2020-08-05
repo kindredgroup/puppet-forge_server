@@ -1,14 +1,14 @@
 {
-  "name": "unibet-forge_server",
-  "version": "0.5.0",
-  "author": "unibet",
+  "name": "parshipelite-forge_server",
+  "version": "0.5.1",
+  "author": "Parship Group",
   "summary": "A Puppet module to manage puppet-forge-server",
   "license": "Apache-2.0",
-  "source": "https://github.com/unibet/puppet-forge_server.git",
+  "source": "https://github.com/parship/puppet-forge_server.git",
   "project_page": "https://github.com/unibet/puppet-forge_server",
   "issues_url": "https://github.com/unibet/puppet-forge_server/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {"name":"puppetlabs-stdlib","version_requirement":">= 4.10.0"}
   ],
   "operatingsystem_support": [
     {
@@ -17,7 +17,7 @@
     },
     {
     "operatingsystem": "Ubuntu",
-    "operatingsystemrelease": [ "14.04", "12.04" ]
+    "operatingsystemrelease": [ "18.04", "16.04", "14.04", "12.04" ]
     },
     {
     "operatingsystem": "SLES",

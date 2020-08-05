@@ -33,69 +33,54 @@ class forge_server::config {
   case $::operatingsystem {
     'RedHat', 'CentOS', 'Fedora', 'Scientific', 'OracleLinux', 'SLC': {
       if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
-        file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0644',
-          content => template("${module_name}/puppet-forge-server.tmpfilesd.erb")
-        }
-        file { '/etc/systemd/system/puppet-forge-server.service':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0640',
-          content => template("${module_name}/puppet-forge-server.service.erb"),
-          notify  => Exec['forge_systemctl-daemon-reload'],
-        }
-        exec { 'forge_systemctl-daemon-reload':
-          command     => 'systemctl daemon-reload',
-          path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
-          refreshonly => true,
-        }
-      }
-      else {
-        file { '/etc/init.d/puppet-forge-server':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0755',
-          content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
-        }
+        $unit_file_path = '/etc/systemd/system/puppet-forge-server.service'
+        $unit_file_template = "${module_name}/puppet-forge-server.service.erb"
       }
     }
     'SLES': {
       if versioncmp($::operatingsystemmajrelease, '12') >= 0 {
-        file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0644',
-          content => template("${module_name}/puppet-forge-server.tmpfilesd.erb")
-        }
-        file { '/usr/lib/systemd/system/puppet-forge-server.service':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0640',
-          content => template("${module_name}/${::osfamily}/puppet-forge-server.service.erb"),
-          notify  => Exec['forge_systemctl-daemon-reload'],
-        }
-        exec { 'forge_systemctl-daemon-reload':
-          command     => 'systemctl daemon-reload',
-          path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
-          refreshonly => true,
-        }
+        $unit_file_path = '/usr/lib/systemd/system/puppet-forge-server.service'
+        $unit_file_template = "${module_name}/${::osfamily}/puppet-forge-server.service.erb"
+      }
+    }
+    'Ubuntu': {
+      if versioncmp($::operatingsystemmajrelease, '15') >= 0 {
+        $unit_file_path = '/etc/systemd/system/puppet-forge-server.service'
+        $unit_file_template = "${module_name}/${::osfamily}/puppet-forge-server.service.erb"
       }
     }
     default: {
-      file { '/etc/init.d/puppet-forge-server':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0755',
-        content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
-      }
+    }
+  }
+
+  if $::service_provider == 'systemd' {
+    file { '/usr/lib/tmpfiles.d/puppet-forge-server.conf':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template("${module_name}/puppet-forge-server.tmpfilesd.erb")
+    }
+    file { $unit_file_path:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0640',
+      content => template($unit_file_template),
+      notify  => Exec['forge_systemctl-daemon-reload'],
+    }
+    exec { 'forge_systemctl-daemon-reload':
+      command     => 'systemctl daemon-reload',
+      path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
+      refreshonly => true,
+    }
+  } else {
+    file { '/etc/init.d/puppet-forge-server':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
     }
   }
 }
