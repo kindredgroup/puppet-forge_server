@@ -91,7 +91,7 @@ class forge_server (
   $log_dir             = $::forge_server::params::log_dir,
   $debug               = false,
   $provider            = 'gem',
-  $forge_server_script = $::forge_server::forge_server_script
+  $forge_server_script = 'puppet-forge-server.ruby2.1',
 ) inherits forge_server::params {
 
   if $scl {
