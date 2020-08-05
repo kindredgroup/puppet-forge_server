@@ -35,14 +35,6 @@ class forge_server::config {
       if versioncmp($::operatingsystemmajrelease, '7') >= 0 {
         $unit_file_path = '/etc/systemd/system/puppet-forge-server.service'
         $unit_file_template = "${module_name}/puppet-forge-server.service.erb"
-      } else {
-        file { '/etc/init.d/puppet-forge-server':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0755',
-          content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
-        }
       }
     }
     'SLES': {
@@ -51,14 +43,13 @@ class forge_server::config {
         $unit_file_template = "${module_name}/${::osfamily}/puppet-forge-server.service.erb"
       }
     }
-    default: {
-      file { '/etc/init.d/puppet-forge-server':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0755',
-        content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
+    'Ubuntu': {
+      if versioncmp($::operatingsystemmajrelease, '15') >= 0 {
+        $unit_file_path = '/etc/systemd/system/puppet-forge-server.service'
+        $unit_file_template = "${module_name}/${::osfamily}/puppet-forge-server.service.erb"
       }
+    }
+    default: {
     }
   }
 
@@ -83,6 +74,13 @@ class forge_server::config {
       path        => '/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin',
       refreshonly => true,
     }
+  } else {
+    file { '/etc/init.d/puppet-forge-server':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => template("${module_name}/${::osfamily}/puppet-forge-server.initd.erb")
+    }
   }
-
 }
