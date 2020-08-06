@@ -49,8 +49,6 @@ class forge_server::config {
         $unit_file_template = "${module_name}/${::osfamily}/puppet-forge-server.service.erb"
       }
     }
-    default: {
-    }
   }
 
   if $::service_provider == 'systemd' {
