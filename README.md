@@ -1,8 +1,8 @@
 # forge_server
 
-[![Build Status](https://secure.travis-ci.org/unibet/puppet-forge_server.png)](http://travis-ci.org/unibet/puppet-forge_server)
-[![Puppet Forge](https://img.shields.io/puppetforge/v/unibet/forge_server.svg)](https://forge.puppetlabs.com/unibet/forge_server)
-[![Puppet Forge](https://img.shields.io/puppetforge/f/unibet/forge_server.svg)](https://forge.puppetlabs.com/unibet/forge_server)
+[![Build Status](https://secure.travis-ci.org/parship/puppet-forge_server.png)](https://travis-ci.org/parship/puppet-forge_server)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/parshipelite/forge_server.svg)](https://forge.puppetlabs.com/parshipelite/forge_server)
+[![Puppet Forge](https://img.shields.io/puppetforge/f/parshipelite/forge_server.svg)](https://forge.puppetlabs.com/parshipelite/forge_server)
 
 #### Table of Contents
 
@@ -42,7 +42,7 @@ If installing in system ruby it must be at least version 1.9.3
 Install the module:
 
 ```
-puppet module install unibet-forge_server
+puppet module install parshipelite-forge_server
 ```
 
 ## Usage

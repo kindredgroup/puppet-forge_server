@@ -1,6 +1,6 @@
 {
   "name": "parshipelite-forge_server",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "Parship Group",
   "summary": "A Puppet module to manage puppet-forge-server",
   "license": "Apache-2.0",
