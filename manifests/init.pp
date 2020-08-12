@@ -91,7 +91,7 @@ class forge_server (
   $log_dir             = $::forge_server::params::log_dir,
   $debug               = false,
   $provider            = 'gem',
-  $forge_server_script = $::forge_server::forge_server_script
+  $forge_server_script = $::forge_server::params::forge_server_script,
 ) inherits forge_server::params {
 
   if $scl {

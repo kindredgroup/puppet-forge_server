@@ -2,6 +2,7 @@ require 'spec_helper'
 describe 'forge_server' do
 
   on_supported_os.each do |os, facts|
+    puts "stdout-debug OS: '#{os}'  -- operatingsystemmajrelease: '#{facts[:operatingsystemmajrelease]}'"
     context "with defaults for all parameters (on #{os})" do
       let(:facts) do
         facts
